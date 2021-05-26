@@ -1,16 +1,36 @@
 # COMP3015
-This is the repo readme for coursework 1 of COMP3015 
-
+This is the repo readme for coursework 2 of COMP3015 
 
 # Version and operating system
-For this project, I used visual studio 2019 version 16.8.3 and windows 10 version 20H2.
-  
+For this project, I used visual studio 2019 version 16.10.0 and windows 10 version 20H2.
+
+# About the project
+This product is a multiple shader implementation with customisable features and object manipulation. I got the idea for this project while seaching for models to use for another project, having to import them into unity to see if the model works and and how it interacts with shadows created by unitys lights can take a while escpecially if there are file extension issues. This program was created to help speed up the process while also being able to manipulate the object in the scene ontop of viewing it with shaders.
+I believe that I have achieved my goal in creating a program that uses multiple shaders and allows for user interaction with objects (being able to change translation, rotation and scale as well as loading different models). If I was able to go back and change anything in the project, I would allow for the user to add objects into a folder and the project automatically add it to an array which would then allow them to load it into the scene. Also, when adding the use of shadows into the program, it caused issues with textures and normal maps and so I had to disable them. With better time allocation I would have tried to find a fix for this allowing the use of both textures and normal maps as well as shadows.
+![Screenshot1](https://i.imgur.com/ufdsOoU.png)
+
+# How to use the software?
+
+**Run it with .exe**
+* Navigate into the "Project_Template" folder 
+* Open the "x64" folder 
+* Find and open the "Release" folder
+* Locate the "Project_Template.exe" file. Run the exe
+
+**Run it in Visual Studio**
+* Navigate into the "Project_Template" folder 
+* Double click the "Project_Template.sln" file
+* Once visual studio is open, select debug and run the program
+
+Once opened, the program is very easy to follow, there are 3 collapsible windows located at the top of the program, they each control an aspect of the model and the ability to manipulate it. They are labelled "Position Object" which allows you to change the position of the object and the x,y and z coordinates. "Scale Object" lets you change the scale of the current object rendered in the scene. "Rotate Object" lets you rotate the object on the x,y and z axis. There is also a button on this window that will reset the rotation of the object to 0 and each of the axes. Finally, located in the bottom right is a debug window that has a name of an object (3 max) currently displayed. This is the object that is currently loaded into the scene, in order to change to another object, simply select another of the choices available to you (currently Plane, Chair and Car).
+
+To control any one of these simply move your cursor and left click on the sliders and drag your mouse to the left to reduce the value and to the right to increase it.
+
 # How does it work?
-  My project is opened by running the .exe named "Project_template.exe" in the release folder found in the x64 folder in the zip files. Once run the program will execute without crashes.
+  The code runs through a loop which renders the scene and all of the objects in it. In the process of rendering the scene, it applies both the shaders that I have designed for this scene. In this case it is shadows and Blinn phong shader. Each of the methods do one function allowing for efficency of the program. As well as this, the methods are evenly spaced to make sure that that along with the comments, the code is easy to read and understand where aspects of it end and others begin.
 
-# How does it work and what I started with?
-  The code runs through a loop which renders the scene and all of the objects in it. In the process of rendering the scene, it has to apply both the shaders that I have designed as well as the textures designed for the object that is the focus of the scene. The object has a diffuse map as well as a normal map and the shader that I chose as the focus of this project is the blinn-phong shader. The code is commented where nessisary outlining the complex aspects of the project in detail as well as a general commenting for everything so it easy to navigate throughout. The functions are evenly spaced to make sure that that along with the comments, the code is easy to read and understand where aspects of it end and others begin.
+# Link to developer walkthrough and images
 
-# Link to developer walkthough and images
+[**YouTube video link of developer walkthrough**](https://youtu.be/VeaWbtEgr6Q)
 
-[**Youtube video link of developer walkthrough**](https://youtu.be/VeaWbtEgr6Q)
+
