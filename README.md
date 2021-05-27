@@ -32,4 +32,4 @@ To control any one of these simply move your cursor and left click on the slider
 
 ## Link to developer walkthrough and images
 
-[**YouTube video link of developer walkthrough**](https://youtu.be/VeaWbtEgr6Q)
+[**YouTube video link of developer walkthrough**](https://www.youtube.com/watch?v=J2wI_Vbnm0g)
