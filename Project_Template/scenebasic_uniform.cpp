@@ -27,6 +27,7 @@ teapot(14, mat4(1.0f)), plane(40.0f, 40.0f, 2, 2), torus(0.7f * 2.0f, 0.3f * 2.0
     BackGround = ObjMesh::load("media/PlaneObj.obj");
 }
 
+
 void SceneBasic_Uniform::initScene()
 {
     compile();
@@ -49,7 +50,7 @@ void SceneBasic_Uniform::initScene()
     float c = 1.65f;
     vec3 lightpos = vec3(0.0f, c * 5.25, c * 7.5f);
     lightFrustum.orient(lightpos, vec3(0.0f), vec3(0.0f, 1.0f, 0.0f));
-    lightFrustum.setPerspective(150.0f, 1.0f, 1.0f, 100.0f);
+    lightFrustum.setPerspective(150.0f, 1.0f, 1.0f, 100.0f); //Sets perspective of what shadows can reach, bigger more area that can be shaded.
     lightPV = shadowBias * lightFrustum.getProjectionMatrix() * lightFrustum.getViewMatrix();
 
     prog.setUniform("Light.Intensity", vec3(0.85f));
@@ -68,6 +69,7 @@ void SceneBasic_Uniform::initScene()
     //glBindTexture(GL_TEXTURE_2D, moss);
 }
 
+
 void SceneBasic_Uniform::compile()
 {
     try {
@@ -85,6 +87,7 @@ void SceneBasic_Uniform::compile()
     }
 }
 
+
 void SceneBasic_Uniform::update(float t)
 {
     float deltaT = t - tPrev;
@@ -94,6 +97,7 @@ void SceneBasic_Uniform::update(float t)
     angle += 0.2f * deltaT;
     if (angle > glm::two_pi<float>()) angle -= glm::two_pi<float>();
 }
+
 
 void SceneBasic_Uniform::render()
 {
@@ -140,6 +144,10 @@ void SceneBasic_Uniform::render()
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
+
+//Creates the window box for the position of the object in the scene.
+//Gets passed a variable called objpos which is then updated and used
+//when rendering the scene.
 void SceneBasic_Uniform::GUIMenu()
 {
     {
@@ -150,6 +158,10 @@ void SceneBasic_Uniform::GUIMenu()
 
 }
 
+
+//Creates a window box for scale slider that changes the scale of the
+//object in the scene. Gets passed a variable called objScale which
+//is used when rendering the scene allowing it to update live.
 void SceneBasic_Uniform::ScaleOBJ()
 {
     {
@@ -160,6 +172,11 @@ void SceneBasic_Uniform::ScaleOBJ()
 
 }
 
+
+//Same as position imgui object but for rotation of the 
+//object instead. This method also has a button that sets 
+//all of the 3 floats in the vec3 objRot to 0 effectively 
+//resetting the rotation.
 void SceneBasic_Uniform::RotateOBJ(){
 
     {
@@ -176,12 +193,21 @@ void SceneBasic_Uniform::RotateOBJ(){
 
 }
 
+
+//Creates a combo box for the objects that can be loaded
+//into the scene. Makes use of a variable called Selected
+//items. This is updated depending on what is selecetd in 
+//the combo box. The number is passed through to the draw
+//method and directly effects which obj is loaded depending
+//on the number.
 void SceneBasic_Uniform::LoadOBJ()
 {
     {
         ImGui::Combo("Object loaded", &Selecteditem, items, IM_ARRAYSIZE(items));
     }
 }
+
+
 void SceneBasic_Uniform::setMatrices()
 {
     mat4 mv = view * model;
@@ -192,6 +218,7 @@ void SceneBasic_Uniform::setMatrices()
     prog.setUniform("ShadowMatrix", lightPV * model);
 }
 
+
 void SceneBasic_Uniform::resize(int w, int h)
 {
     glViewport(0, 0, w, h);
@@ -199,10 +226,13 @@ void SceneBasic_Uniform::resize(int w, int h)
     height = h;
 }
 
+
 void SceneBasic_Uniform::draw()
 {
     vec3 pos = vec3(objPos[0], objPos[1], objPos[2]);
 
+    //Pass 1
+    //Renders the main object in the scene.
     prog.setUniform("Pass", 1);
     vec3 color = vec3(0.2f, 0.5f, 0.9f);
     prog.setUniform("Material.Ka", color * 0.05f);
@@ -220,13 +250,16 @@ void SceneBasic_Uniform::draw()
     if (Selecteditem == 0) {
         obj1->render();
     }
-    else if (Selecteditem == 1) {
-        obj2->render();
+    else if (Selecteditem == 1) { //if else if statement that loops through objects that can 
+        obj2->render();           //be loaded into the scene.
     }
     else if (Selecteditem == 2) {
         obj3->render();
     }
 
+
+    //Pass 0
+    //Renders the background objects.
     prog.setUniform("Pass", 0);
     prog.setUniform("Material.Kd", 0.25f, 0.25f, 0.25f);
     prog.setUniform("Material.Ks", 0.0f, 0.0f, 0.0f);
@@ -251,6 +284,8 @@ void SceneBasic_Uniform::draw()
     model = mat4(1.0f);
 }
 
+
+//Shadow 
 void SceneBasic_Uniform::setupFBO()
 {
     GLfloat border[] = { 1.0f, 0.0f,0.0f,0.0f };

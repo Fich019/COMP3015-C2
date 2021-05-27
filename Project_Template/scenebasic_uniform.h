@@ -37,7 +37,8 @@ private:
     float tPrev;
     float angle;
 
-    float objPos[3] = { 0.0f, 3.0f, 0.0f };
+
+    float objPos[3] = { 0.0f, 3.0f, 0.0f }; //Variables for IMGUI
     float objRot[3] = { 0.0f, 0.0f, 0.0f };
     float objScale[3] = { 1.0f, 1.0f, 1.0f };
 

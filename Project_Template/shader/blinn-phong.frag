@@ -44,6 +44,8 @@ vec3 blinnphongModelDiffAndSpec()
 	return diffuse + spec;
 }
 
+
+//get diffuse and spec for blinn phong shader and return the value for use in the shadow method
 vec3 blinnphongModelDiffAndSpecNORMAL()
 {
 	vec3 n = Normal;
@@ -64,9 +66,13 @@ vec3 blinnphongModelDiffAndSpecNORMAL()
 	return diffuse + spec;
 }
 
+
 subroutine void RenderPassType();
 subroutine uniform RenderPassType RenderPass;
 
+
+//Shades the shadows onto the objects where the light would be casting the shadow. 
+//return the new frag colour with shadows
 subroutine(RenderPassType) void shaderWithShadows()
 {
 	vec3 ambient = Light.Intensity * Material.Kd;
@@ -92,9 +98,10 @@ subroutine(RenderPassType) void shaderWithShadows()
 	FragColor = vec4(diffAndSpec * shadow + ambient, 1.0);
 }
 
+
 subroutine (RenderPassType) void recordDepth()
 {
-	//Nothing is Required Here.
+	//Do nothing here
 }
 
 
